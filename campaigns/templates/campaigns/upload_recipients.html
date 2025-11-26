@@ -1,0 +1,36 @@
+{% extends 'campaigns/base.html' %}
+{% block title %}Upload Recipients{% endblock %}
+{% block content %}
+<h1>Upload Recipients</h1>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <!-- Non-field errors (raised by clean_file or clean) -->
+  {% if form.non_field_errors %}
+    <div class="alert alert-danger">
+      {% for error in form.non_field_errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <div class="mb-3">
+    <label class="form-label">CSV / Excel File</label>
+    {{ form.file }}
+
+    <!-- Field-specific errors -->
+    {% if form.file.errors %}
+      <div class="text-danger">
+        {% for error in form.file.errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="form-text">Expected columns: <code>name,email</code></div>
+  </div>
+
+  <button class="btn btn-primary" type="submit">Upload</button>
+</form>
+{% endblock %}
