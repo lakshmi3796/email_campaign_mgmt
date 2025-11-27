@@ -45,9 +45,7 @@ def upload_recipients(request):
 @staff_member_required
 def campaign_detail(request, campaign_id):
     campaign = get_object_or_404(Campaign, id=campaign_id)
-    print(campaign)
     logs = campaign.logs.all().order_by('-sent_at')  
-    print(logs)
     paginator = Paginator(logs, 25)
     page = request.GET.get('page')
     logs_page = paginator.get_page(page)

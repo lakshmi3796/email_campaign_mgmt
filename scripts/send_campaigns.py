@@ -9,7 +9,6 @@ def run():
     now = timezone.now()
     campaigns = Campaign.objects.filter(status='scheduled',scheduled_time__lte=now)
     for campaign in campaigns:
-        print("campaign==",campaign.name)
         run_campaign(campaign.id)
         print(f"Campaign '{campaign.name}' sent at {timezone.now()}")
         generate_report(campaign)
